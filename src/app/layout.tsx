@@ -1,7 +1,8 @@
 import "./globals.css";
 import Link from "next/link";
 import React from "react";
-
+// import { AuthProvider } from "@/contexts/AuthContext";
+import SignIn from "@/components/SignIn";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,6 +11,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* <AuthProvider> */}
+        <SignIn />
         <div className="flex flex-col min-h-screen">
           <nav className="bg-blue-600 p-4 text-white">
             <div className="container mx-auto flex justify-between items-center">
@@ -34,6 +37,7 @@ export default function RootLayout({
         <footer className="bg-blue-600 p-4 text-white text-center">
           <p>&copy; 2023 MyStore. All rights reserved.</p>
         </footer>
+        {/* </AuthProvider> */}
       </body>
     </html>
   );

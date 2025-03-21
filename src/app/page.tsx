@@ -1,8 +1,19 @@
-export default function Home() {
+import { auth } from "@/auth";
+import { SignIn } from "@/components/auth/signin-button";
+import { SignOut } from "@/components/auth/signout-button";
+export default async function Home() {
+  const session = await auth();
+  console.log("session", session);
+  if (!session?.user) return null;
+
   return (
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-4">Welcome to MyStore</h1>
-      <p className="text-lg">Your one-stop shop for everything!</p>
-    </div>
+    <>
+      <div>
+        <img src={session.user.image} alt="User Avatar" />
+      </div>
+
+      <SignIn />
+      <SignOut />
+    </>
   );
 }

@@ -2,32 +2,29 @@ import React from "react";
 import Image from "next/image";
 
 interface Product {
+  _id: string;
   id: number;
   title: string;
   price: number;
   description: string;
   category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
+  thumbnail: string;
+  rating: number;
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = params;
 
-  const data = await fetch("https://fakestoreapi.com/products/" + id);
-  const product: Product = await data.json();
+  const response = await fetch(`http://localhost:3000/api/product/${id}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch product details");
+  }
+  const product: Product = await response.json();
 
   return (
     <div className="max-w-4xl mx-auto">
       <Image
-        src={product.image}
+        src={product.thumbnail}
         alt={product.title}
         className="w-full h-96 object-cover mb-4"
         width={300}
